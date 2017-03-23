@@ -1,4 +1,5 @@
-http://www.geeksforgeeks.org/minimum-length-subarray-sum-greater-given-value/
+// O(N)
+//http://www.geeksforgeeks.org/minimum-length-subarray-sum-greater-given-value/
 
 #include <iostream>
 #include <limits>
@@ -42,6 +43,5 @@ int main() {
 
 	const std::vector<int> v{- 8, 1, 4, 2, -6};
 	const int k = 6;
-
 	std::cout << "Result: " << findMinSubArrayLen(v, k) << '\n';
 }
