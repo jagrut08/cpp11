@@ -45,7 +45,7 @@ std::string findLongestWdRecur(std::vector<std::string>& wds) {
 
 std::string findLongestWdIter(std::vector<std::string>& wds) {
 	std::unordered_set<std::string> dict = createSet(wds);
-	std::sort(wds.begin(), wds.end(), wdsComparator);
+	std::sort(wds.begin(), wds.end(), wdsComparator); // If it's a list, can do l.sort(l.begin(), l.end(), wdsComparator)
 
 	for(const auto& wd : wds) {
 		//std::cout << "Trying " << wd << '\n';
