@@ -2,12 +2,16 @@
 #include <stdexcept>
 #include <vector>
 
-// O(N) space, O(N) time.
-int totCandies(const std::vector<int>& ranks) {
-	if(ranks.empty()) {
-		throw std::runtime_error("Empty input");
+void printVector(const std::vector<int>& v) {
+	for(const auto& val : v) {
+		std::cout << val << " ";	
 	}
-	std::vector<int> res(ranks.size(), 1);
+	std::cout << '\n';
+}
+
+// O(N) space, O(N) time.
+unsigned long long totCandies(const std::vector<unsigned long>& ranks) {
+	std::vector<unsigned long long> res(ranks.size(), 1);
 	
 	for(size_t i = 0; i < ranks.size() - 1; ++i) {
 		if(ranks[i + 1] > ranks[i] && res[i + 1] <= res[i]) {
@@ -19,10 +23,17 @@ int totCandies(const std::vector<int>& ranks) {
 			res[i - 1] = res[i] + 1;
 		}
 	}
-	return std::sum(res.begin(), res.end());
+	//printVector(res);
+	return std::accumulate(res.begin(), res.end(), 0);
 }
 
 int main() {
-	std::vector<int> ranks{1, 2, 3};
-	std::cout << "\nAnswer: " << totCandies(ranks);
+    size_t sz;
+    std::cin >> sz;
+    std::vector<unsigned long> ranks(sz, 1);
+    for(size_t i = 0; i < sz; ++i) {
+        std::cin >> ranks[i];
+    }
+    std::cout << totCandies(ranks);
+    return 0;
 }
