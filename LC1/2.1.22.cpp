@@ -74,7 +74,7 @@ unsigned long long totCandies(const std::vector<int>& ranksInput) {
         }
 	}
  //   printVector(res);
-    return std::accumulate(res.begin(), res.end(), 0);
+    return std::accumulate(res.begin(), res.end(), 0L); // Careful - just 0 will cause integer accumulation!
 }
 
 int main() {
