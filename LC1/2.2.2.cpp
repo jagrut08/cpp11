@@ -88,12 +88,56 @@ void reverseList(lnPtr& head, const int start, const int end) {
 	startPtr->next = afterEndPtr;
 }
 
+void reverseListOnePass(lnPtr& head, const int start, const int end) {
+	if(start > end) {
+		throw std::runtime_error("start cannot be more than end!");
+	} else if(start <= 0 ) {
+		throw std::runtime_error("Invalid start!");
+	}
+
+	if(!head) {
+		throw std::runtime_error("Invalid list");
+	}
+
+	lnPtr prevPtr{nullptr}, curPtr{head}, nextPtr{nullptr}, oneBeforeStartPtr{nullptr}, startPtr{nullptr};
+
+	for(int i = 1; i < start; ++i) {
+		oneBeforeStartPtr = curPtr;
+		curPtr = curPtr->next;
+		if(!curPtr) {
+			throw std::runtime_error("start position not reachable");
+		}
+	}
+	nextPtr = curPtr;
+	startPtr = curPtr;
+//	std::cout << curPtr->val << '\n';
+
+	for(int i = 0; i < end - start + 1; ++i) {
+		if(!nextPtr) {
+			throw std::runtime_error("end position not reachable");
+		}
+		nextPtr = nextPtr->next;
+		curPtr->next = prevPtr;
+		prevPtr = curPtr;
+		curPtr = nextPtr;
+	}
+
+	if(oneBeforeStartPtr) {
+		oneBeforeStartPtr->next = prevPtr;
+	} else {
+		head = prevPtr;
+	}
+	startPtr->next = nextPtr;
+}
+
 int main() {
 	std::vector<int> listInput{1, 2, 3};
 	const int start = 3, end = 3;
 
 	lnPtr head = createListForward(listInput);
 	printList(head);
-	reverseList(head, start, end);
+//	reverseList(head, start, end);
+	reverseListOnePass(head, start, end);
+
 	printList(head);
 }
