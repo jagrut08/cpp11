@@ -10,12 +10,12 @@ std::string toRoman(const int n) {
 		throw std::runtime_error("Invalid input");
 	}
 
-	std::map<int, std::string> rMap{
+	const std::map<int, std::string> rMap{
 		{1, "I"}, {4, "IV"}, {5, "V"}, {9, "IX"}, {10, "X"}, {40, "XL"},
 		{50, "L"}, {90, "XC"},  {100, "C"}, {400, "CD"}, {500, "D"}, {900, "CM"},  {1000, "M"}
 	};
 	std::stringstream ret;
-	std::map<int, std::string>::reverse_iterator iter = rbegin(rMap);
+	std::map<int, std::string>::const_reverse_iterator iter = crbegin(rMap);
 
 	for(int tmp = n; tmp; tmp -= iter->first) {
 		for(; tmp < iter->first; ++iter) {
