@@ -6,7 +6,7 @@
 
 int romanToInt(const std::string& roman) {
 	int res = 0;
-	std::unordered_map<std::string, int> rMap{
+	const std::unordered_map<std::string, int> rMap{
 {"I", 	1},
 {"IV", 	4},
 {"V", 	5},
@@ -27,10 +27,10 @@ int romanToInt(const std::string& roman) {
 		const std::string tmp = roman.substr(i, 2), tmp1 = roman.substr(i, 1);
 
 		if(rMap.count(tmp)) {
-			res += rMap[tmp];
+			res += rMap.at(tmp);
 			++i;
 		} else if(rMap.count(tmp1)) {
-			res += rMap[tmp1];
+			res += rMap.at(tmp1);
 		} else {
 			throw std::runtime_error("Unexpected characters!");
 		}
