@@ -16,8 +16,8 @@ struct ListNode {
 
 typedef std::shared_ptr<ListNode> lnPtr;
 
-// Using DLL as it allows for constant time addition to head, and constant time removal from any position in the list
-// if there's a ptr to that Node
+// Using DLL + map combination. DLL  allows for constant time addition to head, and constant time removal from any position in the list
+// map allows constant time retrieval of value (only DLL would have meant traversing it in O(N) time.
 
 // Can use built in std::list - see Approach spreadsheet
 
