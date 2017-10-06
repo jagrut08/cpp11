@@ -34,7 +34,7 @@ public:
 	void printCache() const;
 
 private:
-	size_t cap, sz;
+	size_t cap, sz; // cap could be const as it is set once and not updated
 	lnPtr head, tail;
 	std::unordered_map<std::string, lnPtr> cMap;
 
