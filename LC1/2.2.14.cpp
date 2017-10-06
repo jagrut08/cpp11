@@ -31,7 +31,7 @@ public:
 
 	int get(const std::string& key);
 	void set(const std::string& key, const int value);
-	void printCache();
+	void printCache() const;
 
 private:
 	size_t cap, sz;
@@ -71,7 +71,7 @@ void LRUCache::removeFromList(const lnPtr& p) {
 	}
 }
 
-void LRUCache::printCache() {
+void LRUCache::printCache() const {
 	std::cout << "\nCache values: ";
 	for(lnPtr tmp = head; tmp; tmp = tmp->next) {
 		std::cout << "(" << tmp->key << ", " << tmp->value << ")";
@@ -82,7 +82,7 @@ void LRUCache::printCache() {
 	std::cout << '\n';
 }
 
-int LRUCache::get(const std::string& key) {
+int LRUCache::get(const std::string& key) { // Cannot be const as it moves an existing node around.
 	if(!cMap.count(key)) {
 		return -1;
 	}
