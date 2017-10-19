@@ -31,7 +31,7 @@ tnPtr createBinaryTree() {
 	return a;
 }
 // O(N) time, O(N) space, though queue will never be O(N) long as we remove 1 element for each level
-void printInOrderIter(const tnPtr& root) {
+void printPreOrderIter(const tnPtr& root) {
 	std::list<tnPtr> lst; // list used as a stack
 
 	if(root) {
@@ -53,7 +53,7 @@ void printInOrderIter(const tnPtr& root) {
 	}
 }
 // O(N) time, O(N) space for unbalanced BT
-void printInOrderRecur(const tnPtr& root) {
+void printPreOrderRecur(const tnPtr& root) {
 	if(!root) {
 		return;
 	} else {
@@ -121,7 +121,7 @@ void morrisTraversalPreorder(struct node* root)
 
 int main() {
 	const tnPtr root = createBinaryTree();
-	printInOrderRecur(root);
+	printPreOrderRecur(root);
 	std::cout << "\nIteratively:\n";
-	printInOrderIter(root);
+	printPreOrderIter(root);
 }
