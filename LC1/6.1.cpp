@@ -34,23 +34,29 @@ void mergeSortedArrays(std::vector<int>& a, const std::vector<int>& b) {
 	}
 }
 
-std::pair<std::vector<int>, std::vector<int>> createInput(const std::vector<int>& a, const std::vector<int>& b)
+void printArray(const std::vector<int>& v) {
+	for(const auto& val : v) {
+		std::cout << val << " ";
+	}
+	std::cout << '\n';	
+}
 
 int main() {
-	std::vector<vector<int>> as = {
+	const std::vector<vector<int>> as = {
+		{1, 5, 10},
 	};
 	
-	std::vector<vector<int>> bs = {
+	const std::vector<vector<int>> bs = {
+		{2, 6},
 	};
 	
 	for(size_t i = 0; i < as.size(); ++i) {
-		
 		printArray(as[i]);
-		
-		std::vector<int> newA = a.reserve(a.size() + b.size());
+		printArray(bs[i]);	
+		std::vector<int> newA = as[i];
+		newA.resize(a.size() + b.size());
 		mergeSortedArrays(newA, bs[i]);
-		
+		std::cout << "After: " << printArray(newA) << '\n'; 
 	}
-		
 }
 
