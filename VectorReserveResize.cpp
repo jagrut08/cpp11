@@ -67,5 +67,7 @@ Behavior of push_back when vector is created with a fixed size.
 Size: 2, Capacity: 2, Contents: 0 0
 push_back 1
 Size: 3, Capacity: 4, Contents: 0 0 1
+directly write 2 to offset greater than size() - 1
+Size: 3, Capacity: 4, Contents: 0 0 1
 
 */
