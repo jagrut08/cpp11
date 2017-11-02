@@ -40,29 +40,32 @@ int main() {
 	printVector(w); // size and capacity are both 2, contents are default initialized
 
 	std::cout << "push_back 1\n";
-	w.push_back(1); // Increases size by 1, capacity by growth factor (=2)
+	w.push_back(1); // Increases size by 1, to 3. Capacity by growth factor (=2), to 4. Contents are 0, 0, 1.
 	printVector(w);
 
+	std::cout << "directly write 2 to offset greater than size() - 1\n";
+	w[3] = 2; // No exception, but size() and capacity() remain unchanged. Contents: 0, 0, 1.
+	printVector(w);
 }
 /*
 
 Behavior of reserve() and resize().
 Reserve 2
-Size: 0, Capacity: 2, Contents: 
+Size: 0, Capacity: 2, Contents:
 Resizing to 4
-Size: 4, Capacity: 4, Contents: 0 0 0 0 
+Size: 4, Capacity: 4, Contents: 0 0 0 0
 Reserve 6
-Size: 4, Capacity: 6, Contents: 0 0 0 0 
+Size: 4, Capacity: 6, Contents: 0 0 0 0
 push_back 1
-Size: 5, Capacity: 6, Contents: 0 0 0 0 1 
+Size: 5, Capacity: 6, Contents: 0 0 0 0 1
 push_back 2
-Size: 6, Capacity: 6, Contents: 0 0 0 0 1 1 
+Size: 6, Capacity: 6, Contents: 0 0 0 0 1 1
 push_back 3
-Size: 7, Capacity: 12, Contents: 0 0 0 0 1 1 1 
+Size: 7, Capacity: 12, Contents: 0 0 0 0 1 1 1
 
 Behavior of push_back when vector is created with a fixed size.
-Size: 2, Capacity: 2, Contents: 0 0 
+Size: 2, Capacity: 2, Contents: 0 0
 push_back 1
-Size: 3, Capacity: 4, Contents: 0 0 1 
+Size: 3, Capacity: 4, Contents: 0 0 1
 
 */
