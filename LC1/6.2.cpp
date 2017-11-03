@@ -52,6 +52,12 @@ lnPtr mergeSortedSLLs(lnPtr& h1, lnPtr& h2) {
 		return h1;
 	}
 
+	/*
+	 * More elgant logic is
+	 * if h1 nullptr return l2
+	 * if h2 nullptr return l1
+	 * */
+
 	lnPtr l1Nxt = h1, l2Nxt = h2, cur, retHead;
 
 	if(l1Nxt->val < l2Nxt->val) {
@@ -64,7 +70,7 @@ lnPtr mergeSortedSLLs(lnPtr& h1, lnPtr& h2) {
 
 	retHead = cur;
 
-	while(l1Nxt || l2Nxt) {
+	while(l1Nxt || l2Nxt) { // This could be l1Nxt && l2Nxt. Then the case where either l1Nxt == nullptr or l2Nxt == nullptr is handled outside
 
 //		std::cout << "cur value " << (cur ? cur->val : -1) << " l1Nxt value " << (l1Nxt ? l1Nxt->val : -1) << " l2Nxt value " << (l2Nxt ? l2Nxt->val : -1) << '\n';
 
@@ -87,6 +93,10 @@ lnPtr mergeSortedSLLs(lnPtr& h1, lnPtr& h2) {
 	}
 	return retHead;
 }
+
+// Another approach: http://www.geeksforgeeks.org/merge-two-sorted-linked-lists/
+// Create a dummy node and keep assigning its tail to the node with the lesser value between l1 and l2
+// tail = tail->next
 
 int main() {
 	std::vector<std::vector<int>> l1s = {
