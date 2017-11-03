@@ -130,7 +130,7 @@ int main() {
 	};
 
 	for(size_t i = 0; i < l1s.size(); ++i) {
-		lnPtr h1 = createListForward(l1s[i]), h2 = createListForward(l2s[i]);
+		lnPtr h1 = createListForward(l1s[i]), h2 = createListForward(l2s[i]); // This should be inside a try catch
 		printList(h1);
 		printList(h2);
 		lnPtr newHead = mergeSortedSLLs(h1, h2);
