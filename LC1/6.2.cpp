@@ -42,7 +42,7 @@ lnPtr createListForward(const std::vector<int>& v) {
 	}
 	return headPtr;
 }
-
+// O(min(l1, l2)) time, O(1) space
 lnPtr mergeSortedSLLs(lnPtr& h1, lnPtr& h2) {
 	if(!h1 && !h2) {
 		return nullptr;
