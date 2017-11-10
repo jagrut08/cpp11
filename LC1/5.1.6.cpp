@@ -95,7 +95,7 @@ void printZigzagOrder(const tnPtr& root) {
 	while(!cur.empty()) {
 		std::list<tnPtr> nxt;
 		// Below approach always pushes to front, alternative left and right children. 
-		// Anothe approach is to push to front or back alternatively, but with a fixed order of right child, then left child. 
+		// Another approach is to push to front or back alternatively, but with a fixed order of right child, then left child. 
 		for(const auto& p : cur) {
 			std::cout << p->val;
 			if(lr) {
