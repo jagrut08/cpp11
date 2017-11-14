@@ -29,6 +29,7 @@ void printList(const lnPtr head) {
 	std::cout << '\n';
 }
 
+
 // {1, 2, 3} => 1 -> 2 -> 3
 lnPtr createListForward(const std::vector<int>& v) {
 	lnPtr tailPtr{nullptr}, headPtr{nullptr};
@@ -43,8 +44,9 @@ lnPtr createListForward(const std::vector<int>& v) {
 	}
 	return headPtr;
 }
+
 struct ListNodeComparator{
-	bool operator <(const lnPtr& p1, const lnPtr& p2) const {
+	bool operator ()(const lnPtr& p1, const lnPtr& p2) const {
 		return p1->val < p2->val;
 	}
 } listNodeComparator;
@@ -56,7 +58,9 @@ Space: O(KN) due to return data structure space + O(K) space of bst
  *
  * */
 lnPtr mergeKSortedLists(const std::vector<lnPtr>& v) {
-	std::set<lnPtr, listNodeComparator> bst; // If you don't provide a comparator it should still work, but sort based on shared_ptr addresses!
+	std::multiset<lnPtr, ListNodeComparator> bst; // Use multiset to allow dups
+//	std::multiset<lnPtr> bst; // Incorrect, works but sorts on shared_ptr addresses!
+
 	lnPtr rHead{nullptr}, rTail{nullptr};
 
 	for(lnPtr h : v) {
@@ -74,7 +78,7 @@ lnPtr mergeKSortedLists(const std::vector<lnPtr>& v) {
 			rTail->next = nxt;
 			rTail = rTail->next;
 		}
-		bst.erase(bst.begin()); // Confirm if iterator works
+		bst.erase(bst.begin());
 		if(nxt->next) {
 			bst.insert(nxt->next);
 		}
@@ -85,12 +89,19 @@ lnPtr mergeKSortedLists(const std::vector<lnPtr>& v) {
 int main() {
 	const std::vector<std::vector<int>> vals{
 		{1, 10, 100},
-		{15, 25}
-	}
+		{15, 25},
+		{1, 10},
+		{},
+		{1, 5, 89},
+		{9, 78},
+		{0, 7, 100},
+		{7, 45},
+
+	};
 
 	std::vector<lnPtr> lists;
 	for(const auto & val : vals) {
-		lnPtr h = createForwardList(val);
+		lnPtr h = createListForward(val);
 		printList(h);
 		lists.emplace_back(h);
 	}
@@ -99,51 +110,3 @@ int main() {
 	std::cout << "Merged:\n";
 	printList(res);
 }
-
-///
-lnPtr mergeKSortedLists(const std::vector<lnPtr>& v)
---
-
-{1, 10, 100}
-{15, 25} 		=> {1, 10, 15, 25, 100}
-
-{1, 10} => {1, 10}
-{} => {}
-
-{}
-{1, 5} => {1, 5}
-
-{1, 5} 
-{10, 20} => {1, 5, 10, 20}
-
-{10, 20}
-{1, 5, 7} => {1, 5, 7, 10, 20}
-
-{1, 4}
-{1, 4} => {0, 1, 1, 4, 4, 7}
-{0, 7}
-
-{1, 7} => 1, 7
-
-{1, 5, 89}
-{9, 78}
-{0, 7 100}
-{7 45}
---
-BF
-
-	iterate over all lists, add head to wLst 
-	
-	while(wLst not empty)
-		find the smallest element of wLst // O(K)
-		remove it from wLst and replace with its successor // O(1)
-		add it to return list // O(1)
-	
-	return rHead
---
-Time: O(KN) nodes processed + O(K) linear search for each node, so O(K^2N + KN))
-Space: O(KN) + O(K) of wLst
- 	
---
---
-
