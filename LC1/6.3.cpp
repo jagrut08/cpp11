@@ -49,7 +49,7 @@ struct ListNodeComparator{
 	bool operator ()(const lnPtr& p1, const lnPtr& p2) const {
 		return p1->val < p2->val;
 	}
-} listNodeComparator;
+};
 
 /*
  * K lists, N nodes max. Each node inserted into bst once.
