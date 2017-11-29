@@ -1,60 +1,49 @@
 #include <iostream>
 #include <vector>
-#include <limits>
-#include <algorithm> // std::min ?
-
-int findFirstMissingPositive(const std::vector<int>& v) {
-	if(v.empty()) {
-		return -1;
-	}
-
-	int minR = std::numeric_limits<int>::max(), maxR = std::numeric_limits<int>::min(), cnt = 0;
-	long long int cs = 0;
-
-	for(const auto& val : v) {
-		if(val <= 0) {
-			continue;
-		}
-		minR = std::min(minR, val);
-		maxR = std::max(maxR, val);
-		++cnt;
-		cs += val;
-	}
-
-	//std::cout << '\n' << minR << ", " << maxR << ", " << cnt << ", " << cs << '\n';
-	if(minR > 1) {
-		return 1;
-	} else  {
-		++cnt;
-		return (cnt * (cnt + 1) / 2) - cs;
-	}
-}
 
 void printVector(const std::vector<int>& v) {
 	if(v.empty()) {
-		std::cout << "{}";
+		std::cout << "{}\n";
 		return;
 	}
 
-	for(const auto& val : v) {
+	for(const auto & val : v) {
 		std::cout << val << " ";
 	}
+	std::cout << '\n';
 }
+// From LC Discuss
+// O(N) time, O(1) space
+// Despite the while() inside the for() loop, the operations under the while() loop happen at most once
+// E.g., after an element is swapped once, it will never be swapped again due to this check: nums[nums[i] - 1] != nums[i]
+int firstMissingPositive(std::vector<int>& nums) {
+        int n = nums.size();
+        for (int i = 0; i < n; ++i)
+            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i])
+                std::swap(nums[i], nums[nums[i] - 1]);
 
+        std::cout << "After bucket sort: ";
+        printVector(nums);
+        for (int i = 0; i < n; i++)
+            if (nums[i] != i + 1)
+                return i + 1;
+        return n + 1;
+    }
 int main() {
-	const std::vector<std::vector<int>> v{
-		{1, 2, 0},
-		{3, 4, -1, 1},
-		{},
-		{-1},
-		{1},
-		{1, 6, 7, 8},
+	std::vector<std::vector<int>> v{
+			{1, 2, 0},
+			{3, 4, -1, 1},
+			{},
+			{-1},
+			{1},
+			{1, 6, 7, 8},
+			{1, 2, 2, 2},
+			{-1, 2, -1, 4},
+			{3, 4, -1, 1},
+		};
 
-//		{1, 2, 2, 2},
-	};
-
-	for(const auto & arr : v) {
-		printVector(arr);
-		std::cout << " Missing: " << findFirstMissingPositive(arr) << '\n';
-	}
+		for(auto& arr : v) {
+			printVector(arr);
+			std::cout << "Missing: " << firstMissingPositive(arr) << '\n' << '\n';
+		}
 }
