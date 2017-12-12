@@ -117,7 +117,7 @@ void printListUsingRight(const tnPtr& root) {
 
 
 
-// Simple recursive solution, assumes 'next' pointer
+// Simple recursive solution using pre-order traversal (root->left->right), assumes 'next' pointer
 // O(N) time, creates list in-place
 // Space for recursion = O(N) for Unbalanced tree, log(N) for balanced
 // This is an easy solution because of the 'next' pointer
@@ -145,7 +145,7 @@ void flattenBT(const tnPtr& root) {
 	flattenRecur(prev, cur);
 }
 
-// Better Recursive solution - use reverse pre order traversal (left->right->root)
+// Better Recursive solution - uses reverse pre order traversal (right->left->root)
 // https://discuss.leetcode.com/topic/11444/my-short-post-order-traversal-java-solution-for-share
 
 // Reverse post order traversal parses createBinaryTree6() as 6 - 5 - 4 - 3 - 2 - 1. prev stores reference to the last
