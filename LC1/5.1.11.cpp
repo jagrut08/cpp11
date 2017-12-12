@@ -99,13 +99,28 @@ void printList(const tnPtr& root) {
 	}
 }
 
+void printListUsingRight(const tnPtr& root) {
+	std::cout << "\nList: ";
+
+	if(!root) {
+		std::cout << "{}\n";
+	} else {
+		tnPtr cur = root;
+
+		while(cur) {
+			std::cout << cur->val << "->";
+			cur = cur->right;
+		}
+		std::cout << '\n';
+	}
+}
 
 
+
+// Simple recursive solution, assumes 'next' pointer
 // O(N) time, creates list in-place
 // Space for recursion = O(N) for Unbalanced tree, log(N) for balanced
 // This is an easy solution because of the 'next' pointer
-// In case there's no next pointer (ideally BT has no next pointer), and the right children are arranged in a linked-list manner, see GFG
-// http://qa.geeksforgeeks.org/3976/qa.geeksforgeeks.org/3976/flattening-a-binary-tree
 
 void flattenRecur(tnPtr& prev, const tnPtr& cur) {
 	if(!cur) {
@@ -130,12 +145,52 @@ void flattenBT(const tnPtr& root) {
 	flattenRecur(prev, cur);
 }
 
+// Better Recursive solution - use reverse post order traversal (left->right->root)
+// https://discuss.leetcode.com/topic/11444/my-short-post-order-traversal-java-solution-for-share
+
+// Reverse post order traversal parses createBinaryTree6() as 6 - 5 - 4 - 3 - 2 - 1. prev stores reference to the last
+// node visited, and that is set to the current root node's right child. The original value of the right child can be overwritten
+// as it has already been used
+
+void flattenBTOptRecur(tnPtr& prev, const tnPtr& root) {
+    if (!root) {
+        return;
+    }
+
+    flattenBTOptRecur(prev, root->right); // This manipulates previous, setting it to appropriate node from the right sub tree
+    flattenBTOptRecur(prev, root->left);
+
+    std::cout << "\nSetting " << root->val << " right child to prev " << (prev? std::to_string(prev->val) : "nullptr" ) << '\n';
+    root->right = prev;
+
+    root->left = nullptr;
+
+    std::cout << "prev is set to " << root->val << '\n';
+    prev = root;
+}
+
+void flattenBTOpt(const tnPtr& root) {
+	tnPtr prev = nullptr, cur = root;
+	flattenBTOptRecur(prev, cur);
+}
+// Iterative solution
+// In case there's no next pointer (ideally BT has no next pointer), and the right children are arranged in a linked-list manner, see GFG
+// http://qa.geeksforgeeks.org/3976/qa.geeksforgeeks.org/3976/flattening-a-binary-tree
+
 int main() {
 	tnPtr root = nullptr;
 	try	{
-		root = createBinaryTree3b();
+		root = createBinaryTree6();
+
+		/*
 		flattenBT(root);
 		printList(root);
+		*/
+
+		flattenBTOpt(root);
+		printListUsingRight(root);
+
+
 	} catch(const std::runtime_error& e) {
 		std::cout << e.what() << '\n';
 		return 1;
