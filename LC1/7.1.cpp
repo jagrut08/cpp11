@@ -51,10 +51,7 @@ int findStartOfRange(const std::vector<int>& v, const int x){
 
 // O(logN) time, O(1) space
 std::pair<int, int> findRangeOpt(const std::vector<int>& v, const int x) {
-	if(v.empty()) {
-		return std::make_pair(-1, -1);
-	}
-
+	// The below works even if v is empty
 	int beg = findStartOfRange(v, x);
 	int end = findEndOfRange(v, x);
 	return std::make_pair(beg, end);
