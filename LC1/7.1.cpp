@@ -39,7 +39,7 @@ int findStartOfRange(const std::vector<int>& v, const int x){
 					return mid;
 		}
 
-		if(x > v[mid]) {  // Node > here. Only if x is more than v[mid], we move low.
+		if(x > v[mid]) {  // Node > here. Only if x is more than v[mid], we move low. If x == v[mid], we bring high leftwards to reach the left end of the range.
 			low = mid + 1;
 		} else {
 			high = mid - 1;
