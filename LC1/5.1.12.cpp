@@ -98,12 +98,14 @@ tnPtr getNextRight(const tnPtr& root) {
 // next of level i should be set before processing level i + 1. Traverse in (next, root, left or right) order
 //http://www.geeksforgeeks.org/connect-nodes-at-same-level-with-o1-extra-space/
 // O(N) time, O(N) space due to recursion
+// It appears to visit some nodes more than once, so is doing more work than necessary
 void populateNextAnyBTRecur(const tnPtr& root) {
 	// Nothing to be done null node. Note that leaf nodes are handled by the last line of this method.
 	if(!root) {
 		return;
 	}
 
+	std::cout << "Processing " << root->val << '\n';
 
 	if(root->next) {
 		populateNextAnyBTRecur(root->next);
@@ -133,8 +135,8 @@ void populateNextAnyBTRecur(const tnPtr& root) {
 	        root->right->next = getNextRight(root);
 	        populateNextAnyBTRecur(root->right);
 	    }
-	    else // The case wherein there's no left or right nodes.
-	       populateNextAnyBTRecur(getNextRight(root));
+	//    else // The case wherein there's no left or right nodes. // These two are not needed! but are in GFG solution
+	 //      populateNextAnyBTRecur(getNextRight(root));
 }
 
 // Iterative solution, O(N) time, O(1) space. Simplest to understand and elegant.
@@ -143,6 +145,7 @@ void populateNextAnyBTIter(const tnPtr& root) {
 		return;
 	}
 
+
 	root->next = nullptr;
 	tnPtr tmp = root;
 
@@ -150,6 +153,8 @@ void populateNextAnyBTIter(const tnPtr& root) {
 	while(tmp) {
 		tnPtr p = tmp;
 		while(p) {
+			std::cout << "Processing " << p->val << '\n';
+
 			if(p->left) {
 				if(p->right) {
 					p->left->next = p->right;
@@ -214,7 +219,8 @@ int main() {
 	tnPtr root = nullptr;
 	try	{
 		root = createBinaryTree11();
-		populateNextAnyBTIter(root);
+//		populateNextAnyBTIter(root);
+		populateNextAnyBTRecur(root);
 		printTreeUsingNext(root);
 	} catch(const std::runtime_error& e) {
 		std::cout << e.what() << '\n';
