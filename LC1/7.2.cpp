@@ -1,4 +1,5 @@
 // O(logN) time
+// If there are dups, it returns the first occurrence of val
 int findIndex(const std::vector<int>& v, const int val) {
 	if(v.empty()) {
 		return 0;
