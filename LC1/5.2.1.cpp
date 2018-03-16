@@ -157,7 +157,7 @@ void createBT(tnPtr& parent, int& preIdx, const std::vector<char>& pre, const st
 	}
 }
 
-// O(N * logN) time, N elements, and for each element, we search it in the inorder traversal vector but the size of the search set halves
+// O(N * N) time, N elements, and for each element, we search it in the inorder traversal vector but the size of the search set is N - 1 elements (worst case) for left-skewed trees
 // O(N) space for unbalanced BT, N stack frames
 tnPtr createBTFromPreAndIn(const std::vector<char>& pre, const std::vector<char>& in) {
 	if(pre.size() != in.size()) {
@@ -179,7 +179,7 @@ std::unordered_map<char, int> createIndexHashTable(const std::vector<char>& in) 
 	return res;
 }
 
-void createBTOpt(tnPtr& parent, int& preIdx, const std::vector<char>& pre, const std::vector<char>& in, const int l, const int r, const bool isLeft, const std::unordered_map<char, int> indexHash) {
+void createBTOpt(tnPtr& parent, int& preIdx, const std::vector<char>& pre, const std::vector<char>& in, const int l, const int r, const bool isLeft, const std::unordered_map<char, int>& indexHash) {
 	if(preIdx >= pre.size()) {
 		return;
 	}
@@ -247,7 +247,7 @@ bool compareBTs(const tnPtr& r1, const tnPtr& r2) {
 
 
 int main() {
-	tnPtr root = createBinaryTree2();
+	const tnPtr root = createBinaryTree2();
 	std::vector<char> pre, in;
 	auto printFn = [&](const char& c) {std::cout << c << " "; };
 
@@ -261,7 +261,7 @@ int main() {
 	std::for_each(pre.begin(), pre.end(), printFn);
 	std::cout <<'\n';
 
-	tnPtr newRoot = createBTFromPreAndIn(pre, in);
+	const tnPtr newRoot = createBTFromPreAndIn(pre, in);
 	std::cout << "BT from Pre and In order traversals matches original tree : " << std::boolalpha << compareBTs(root, newRoot) << '\n';
 
 
