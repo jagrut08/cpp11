@@ -14,6 +14,16 @@ struct TreeNode {
 
 typedef std::shared_ptr<TreeNode> tnPtr;
 
+tnPtr createBinaryTree7() {
+	return nullptr;
+}
+
+tnPtr createBinaryTree6() {
+	tnPtr a = std::make_shared<TreeNode>('a');
+
+	return a;
+}
+
 tnPtr createBinaryTree5() {
 	tnPtr a = std::make_shared<TreeNode>('a');
 	tnPtr b = std::make_shared<TreeNode>('b');
@@ -247,22 +257,23 @@ bool compareBTs(const tnPtr& r1, const tnPtr& r2) {
 
 
 int main() {
-	const tnPtr root = createBinaryTree2();
-	std::vector<char> pre, in;
-	auto printFn = [&](const char& c) {std::cout << c << " "; };
 
-	inOrder(root, in);
-	std::cout << "In Order traversal is: ";
-	std::for_each(in.begin(), in.end(), printFn);
-	std::cout <<'\n';
+	const std::vector<tnPtr> trees = {createBinaryTree(), createBinaryTree2(), createBinaryTree3(), createBinaryTree4(), createBinaryTree5(), createBinaryTree6(), createBinaryTree7()};
+	for(const auto& root : trees) {
+		std::vector<char> pre, in;
+		auto printFn = [&](const char& c) {std::cout << c << " "; };
 
-	preOrder(root, pre);
-	std::cout << "Pre Order traversal is: ";
-	std::for_each(pre.begin(), pre.end(), printFn);
-	std::cout <<'\n';
+		inOrder(root, in);
+		std::cout << "In Order traversal is: ";
+		std::for_each(in.begin(), in.end(), printFn);
+		std::cout <<'\n';
 
-	const tnPtr newRoot = createBTFromPreAndIn(pre, in);
-	std::cout << "BT from Pre and In order traversals matches original tree : " << std::boolalpha << compareBTs(root, newRoot) << '\n';
+		preOrder(root, pre);
+		std::cout << "Pre Order traversal is: ";
+		std::for_each(pre.begin(), pre.end(), printFn);
+		std::cout <<'\n';
 
-
+		const tnPtr newRoot = createBTFromPreAndIn(pre, in);
+		std::cout << "BT from Pre and In order traversals matches original tree : " << std::boolalpha << compareBTs(root, newRoot) << '\n' << '\n';
+	}
 }
