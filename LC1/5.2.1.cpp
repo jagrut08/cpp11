@@ -273,7 +273,9 @@ int main() {
 		std::for_each(pre.begin(), pre.end(), printFn);
 		std::cout <<'\n';
 
-		const tnPtr newRoot = createBTFromPreAndIn(pre, in);
+//		const tnPtr newRoot = createBTFromPreAndIn(pre, in);
+		const tnPtr newRoot = createBTFromPreAndInOpt(pre, in);
+
 		std::cout << "BT from Pre and In order traversals matches original tree : " << std::boolalpha << compareBTs(root, newRoot) << '\n' << '\n';
 	}
 }
