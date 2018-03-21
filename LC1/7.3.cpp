@@ -1,12 +1,3 @@
-/*
-multiple hits? no hits?
-revise bsearch
-document Opt if different
-document idea that you can skip an entire row if next row's first elem is <=n
-const std::vector<const std::vector<int>> or just const std::vector<std::vector<int>> ?
-*/
-
-
 #include <iostream>
 #include <vector>
 
@@ -59,10 +50,9 @@ bool searchSortedMatrixOpt(const int n, const std::vector<std::vector<int>>& m) 
 			return false;
 	}
 
-	int r = 0;
-	const int mRows = m.size() - 1, mCols = m[0].size() - 1;
+	const int mRows = m.size(), mCols = m[0].size();
 
-	if(m[mRows][mCols] < n) {
+	if(m[mRows - 1][mCols - 1] < n) {
 		return false;
 	}
 
@@ -70,9 +60,19 @@ bool searchSortedMatrixOpt(const int n, const std::vector<std::vector<int>>& m) 
 
 	while(l <= h) {
 		const int mid = l + (h - l) / 2;
-
+		const int elem = m[mid / mCols][mid % mCols];// Segment = index / segment size (mCols), offset within segment = index % segment size.
+		if(elem == n) {
+			return true;
+		} else if(n > elem) {
+			l = mid + 1;
+		} else {
+			h = mid - 1;
+		}
 	}
+	return false;
 }
+
+// Even more opt - log(M) + log(N) here: https://www.geeksforgeeks.org/search-element-sorted-matrix/
 int main() {
 	const std::vector<std::vector<int>> m{
 		{3, 5, 7},
@@ -82,6 +82,6 @@ int main() {
 
 	const std::vector<int> vals{3, 5, 7, 10, 15, 19, 45, 89, 99, -1, 100, 4, 6, 12, 16, 50, 90};
 	for(const auto v : vals) {
-		std::cout << v << ": " << std::boolalpha << searchSortedMatrix(v, m) << '\n';
+		std::cout << v << ": " << std::boolalpha << searchSortedMatrix(v, m) << ", " << searchSortedMatrixOpt(v, m) << '\n';
 	}
 }
