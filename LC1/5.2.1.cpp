@@ -127,7 +127,8 @@ int findNodeInInorder(const char c, const std::vector<char>& in, const int begin
 	}
 	return -1;
 }
-
+// Below solution works, but GFG has a more elegant one - don't need to pass in parent, rather the recursive calls are 
+// curNode->left = f() and curNode->right = f()
 void createBT(tnPtr& parent, int& preIdx, const std::vector<char>& pre, const std::vector<char>& in, const int l, const int r, const bool isLeft) {
 	if(preIdx >= pre.size()) {
 		return;
