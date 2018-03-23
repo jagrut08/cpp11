@@ -136,6 +136,8 @@ tnPtr createBTFromInAndPostHelper(int& curIdx, const int inStart, const int inEn
 	int curInIdx = inIdxs.at(c);
 
  	if(curInIdx + 1 <= inEnd) {
+		// At this point, even the post order array can be reduced to contain the same number of 
+		// elements as inEnd - (curInIdx + 1) + 1, starting with curIdx and going left. GFG solution uses this approach.
 		cur->right = createBTFromInAndPostHelper(curIdx, curInIdx + 1, inEnd, inIdxs, post);
 	}
 
