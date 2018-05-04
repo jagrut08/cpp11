@@ -41,6 +41,7 @@ void getPermutationsHelper(
 // Idea is to try each character of the input array v in each location of a permutation
 // curRes is a permutation, and curIdx tracks its characters. For each value of curIdx, consider
 // using each character of v.
+// This is a type of DFS
 std::vector<std::vector<int>> getPermutations(const std::vector<int>& v) {
 	std::vector<bool> used(v.size(), false);
 	std::vector<std::vector<int>> res;
